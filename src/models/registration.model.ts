@@ -4,7 +4,7 @@ export interface IRegistration extends Document {
   name: string;
   lastname: string;
   email: string;
-  phone: string;
+  phone: number;
   age: string;
   bicycleBrand: string
 }
@@ -23,8 +23,6 @@ const RegistrationModel = new Schema({
 
 }, { versionKey: false });
 
-//RegistrationModel.index({ eventId: 1, participantId: 1 }, { unique: true });
 const Registration = mongoose.model<IRegistration>('Registration', RegistrationModel);
 
 export default Registration;
-//export default model('Registration', Registration);

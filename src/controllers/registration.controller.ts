@@ -7,7 +7,10 @@ export const create = async (req: Request, res: Response): Promise<void> => {
     const registration = await registrationService.createRegistration(req.body);
     res.status(201).json(registration);
   } catch (error: any) {
-    res.status(400).json({ message: "Error creando inscripción", error: error.message });
+    if(error.name === "ValidationError") 
+      res.status(400).json({ message: error.errors });
+    else 
+      res.status(400).json({ message: "Error creando inscripción", error: error.message });
   }
 };
 
