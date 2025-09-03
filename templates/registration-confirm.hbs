@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Confirmación de inscripción</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+  </head>
+  <body style="margin:0;padding:0;background-color:#f5f7fa;">
+    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f5f7fa;padding:24px 0;">
+      <tr>
+        <td align="center">
+          <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width:600px;background:#ffffff;border-radius:12px;overflow:hidden;font-family:Arial,Helvetica,sans-serif;">
+            <!-- Header -->
+            <tr>
+              <td align="center" style="padding:24px;background:#1e7a3f;">
+                {{#if logoUrl}}
+                  <img src="{{logoUrl}}" alt="Logo" width="64" height="64" style="display:block;border:0;border-radius:8px;margin-bottom:12px;" />
+                {{/if}}
+                <h1 style="margin:0;font-size:22px;line-height:28px;color:#ffffff;">
+                  {{eventName}}
+                </h1>
+                <p style="margin:6px 0 0 0;font-size:14px;line-height:20px;color:#d7f3df;">
+                  Confirmación de inscripción
+                </p>
+              </td>
+            </tr>
+
+            <!-- Greeting -->
+            <tr>
+              <td style="padding:24px;">
+                <p style="margin:0 0 12px 0;font-size:16px;color:#111827;">
+                  ¡Hola {{participantName}}!
+                </p>
+                <p style="margin:0 0 16px 0;font-size:14px;color:#374151;">
+                  Hemos recibido tu inscripción al evento de ciclismo de montaña. ¡Gracias por sumarte! A continuación te
+                  compartimos la información clave para que te prepares.
+                </p>
+
+                <!-- Details card -->
+                <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;">
+                  <tr>
+                    <td style="padding:16px;">
+                      <p style="margin:0 0 8px 0;font-size:14px;color:#111827;">
+                        <strong>Fecha:</strong> {{eventDate}}
+                      </p>
+                      <p style="margin:0 0 8px 0;font-size:14px;color:#111827;">
+                        <strong>Horario:</strong> {{eventTime}}
+                      </p>
+                      {{#if location}}
+                        <p style="margin:0 0 8px 0;font-size:14px;color:#111827;">
+                          <strong>Lugar:</strong> {{location}}
+                        </p>
+                      {{/if}}
+                      {{#if distance}}
+                        <p style="margin:0 0 8px 0;font-size:14px;color:#111827;">
+                          <strong>Distancia/Categoría:</strong> {{distance}}
+                        </p>
+                      {{/if}}
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Equipment -->
+                <h3 style="margin:20px 0 8px 0;font-size:16px;color:#111827;">Equipamiento recomendado</h3>
+                <p style="margin:0 0 8px 0;font-size:13px;color:#374151;">
+                  Te sugerimos llevar:
+                </p>
+                <ul style="margin:0 0 16px 20px;padding:0;font-size:14px;color:#111827;">
+                  {{#each equipment}}
+                    <li style="margin-bottom:6px;">{{this}}</li>
+                  {{/each}}
+                </ul>
+
+                <!-- Button -->
+                {{#if eventUrl}}
+                  <table role="presentation" cellpadding="0" cellspacing="0" style="margin:12px 0 0 0;">
+                    <tr>
+                      <td align="center" bgcolor="#1e7a3f" style="border-radius:8px;">
+                        <a href="{{eventUrl}}"
+                           style="display:inline-block;padding:12px 18px;font-size:14px;text-decoration:none;color:#ffffff;"
+                           target="_blank" rel="noopener">
+                          Ver detalles del evento
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                {{/if}}
+
+                <!-- Footer -->
+                <p style="margin:20px 0 0 0;font-size:12px;color:#6b7280;">
+                  Si tenés dudas, escribinos a <a href="mailto:{{supportEmail}}" style="color:#1e7a3f;text-decoration:none;">{{supportEmail}}</a>.
+                </p>
+                <p style="margin:6px 0 0 0;font-size:12px;color:#6b7280;">
+                  ¡Gracias por tu inscripción y nos vemos en la línea de largada! 🚵‍♂️
+                </p>
+              </td>
+            </tr>
+
+            <!-- Bottom bar -->
+            <tr>
+              <td align="center" style="padding:14px;background:#f3f4f6;">
+                <p style="margin:0;font-size:12px;color:#6b7280;">
+                  © {{year}} {{organizerName}}. Todos los derechos reservados.
+                </p>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

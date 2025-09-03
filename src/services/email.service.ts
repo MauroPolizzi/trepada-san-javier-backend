@@ -1,4 +1,7 @@
 import nodemailer from "nodemailer";
+import hbs from "nodemailer-express-handlebars";
+import { create } from "express-handlebars";
+import path from "path";
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -9,6 +12,25 @@ const transporter = nodemailer.createTransport({
       pass: process.env.SMTP_PASS,
   },
 });
+
+// Configuración de handlebars (v7)
+// Instancia de express-handlebars
+const hbsEngine = create({
+  extname: ".hbs",
+  layoutsDir: path.resolve("./templates/"),
+  defaultLayout: false,
+  partialsDir: path.resolve("./templates/partials/"), // opcional
+});
+
+// Configuración handlebars para nodemailer
+const handlebarOptions = {
+  viewEngine: hbsEngine,              // ✅ ahora es instancia
+  viewPath: path.resolve("./templates/"),
+  extName: ".hbs",
+};
+
+transporter.use("compile", hbs(handlebarOptions));
+
 
 export const sendEmail = async (
   to: string,
@@ -29,6 +51,36 @@ export const sendEmail = async (
     return info;
   } catch (error) {
     console.error("Error al enviar email:", error);
+    throw error;
+  }
+};
+
+/**
+ * Envía un correo con un template handlebars
+ * @param to Destinatario
+ * @param subject Asunto del correo
+ * @param template Nombre del archivo .hbs dentro de /templates
+ * @param context Variables dinámicas para el template
+ */
+export const sendTemplateEmail = async (
+  to: string,
+  subject: string,
+  template: string,
+  context: Record<string, any>
+) => {
+  try {
+    const info = await transporter.sendMail({
+      from: `"Mi App 🚀" <${process.env.EMAIL_USER}>`,
+      to,
+      subject,
+      template, // por ejemplo: "mtb-confirmation"
+      context,
+    } as any);
+
+    console.log("📩 Email enviado:", info);
+    return info;
+  } catch (error) {
+    console.error("❌ Error al enviar email:", error);
     throw error;
   }
 };
