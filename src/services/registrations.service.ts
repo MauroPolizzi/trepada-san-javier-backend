@@ -1,5 +1,6 @@
 import Registration, { IRegistration } from "../models/registration.model";
 import { validateEmailExist, validatePhoneExist, validateRegistration } from "../validators/registration.validator";
+import { sendEmail } from "./email.service";
 
 export const createRegistration = async (data: IRegistration): Promise<IRegistration> => {
 
@@ -32,6 +33,9 @@ export const createRegistration = async (data: IRegistration): Promise<IRegistra
         throw { name: "ValidationError", errors};
     }
 
+    // Si no tenemos errores en validaciones, podemos enviar el mail y crear la inscripcion
+    await sendEmailRegistration(data.email);
+
     const registration = new Registration(data);
     return await registration.save();
 };
@@ -43,3 +47,7 @@ export const getAllRegistrations = async (): Promise<IRegistration[]> => {
 export const getRegistrationById = async (id: string): Promise<IRegistration | null> => {
     return await Registration.findById(id);
 };
+
+const sendEmailRegistration = async (emailTo: string) => {
+    await sendEmail(emailTo, "Inscripcion a evento", "")
+}

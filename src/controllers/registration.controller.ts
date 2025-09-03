@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
 import * as registrationService from "../services/registrations.service";
+import { sendEmail } from "../services/email.service";
 
 // Crear inscripción
 export const create = async (req: Request, res: Response): Promise<void> => {
   try {
     const registration = await registrationService.createRegistration(req.body);
-    res.status(201).json(registration);
+    
+    res.status(201).json({registration, sendEmail: 'ok'});
   } catch (error: any) {
     if(error.name === "ValidationError") 
       res.status(400).json({ message: error.errors });
