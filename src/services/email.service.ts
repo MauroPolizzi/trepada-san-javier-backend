@@ -17,15 +17,15 @@ const transporter = nodemailer.createTransport({
 // Instancia de express-handlebars
 const hbsEngine = create({
   extname: ".hbs",
-  layoutsDir: path.resolve("./templates/"),
+  layoutsDir: path.resolve(__dirname, "../../templates/"),
   defaultLayout: false,
-  partialsDir: path.resolve("./templates/partials/"), // opcional
+  partialsDir: path.resolve(__dirname ,"../../templates/partials/"), // opcional
 });
 
 // Configuración handlebars para nodemailer
 const handlebarOptions = {
   viewEngine: hbsEngine,              // ✅ ahora es instancia
-  viewPath: path.resolve("./templates/"),
+  viewPath: path.resolve(__dirname, "../../templates/"),
   extName: ".hbs",
 };
 
